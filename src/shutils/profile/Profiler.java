@@ -1,9 +1,7 @@
-package shutils;
+package shutils.profile;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -17,6 +15,13 @@ import java.util.function.Function;
  * @param <T> The type of the parameter accepted by the algorithm to be profiled.
  */
 public class Profiler<T> {
+	
+	/*
+	 * -----------------------------
+	 * 		INTERNAL FIELDS
+	 * -----------------------------
+	 * 
+	 */
 	
 	/**
 	 * The method/algorithm to be profiled.
@@ -62,9 +67,21 @@ public class Profiler<T> {
 	
 	
 	
+	
+	
+	
+	/*
+	 * -----------------------------
+	 * 		CONSTRUCTORS
+	 * -----------------------------
+	 * 
+	 */
+	
 	/**
 	 * Internal constructor, used to initialized most of the internal details of the class.
 	 * @param algorithm The method/algorithm to be profiled.
+	 * @param copyProducer The routine that copies a given element of the test set. This is required
+	 * in order to repeat the test multiple times.
 	 */
 	private Profiler(Consumer<T> algorithm, Function<T, T> copyProducer)
 	{
@@ -94,7 +111,7 @@ public class Profiler<T> {
 	}
 	
 	/**
-	 * Initializes this profiled with a certain algorithm to be profiled and a certain input
+	 * Initializes this profiler with a certain algorithm to be profiled and a certain input
 	 * generator which can be used to generate the test input set that allows to profile the algorithm.
 	 * @param algorithm The algorithm to be profiled.
 	 * @param inputSet The test input set generator to be used to create the test set
@@ -113,6 +130,13 @@ public class Profiler<T> {
 	
 	
 	
+	
+	/*
+	 * -----------------------------
+	 * 		INPUT SET HANDLING
+	 * -----------------------------
+	 * 
+	 */
 	
 	/**
 	 * Allows to check if the current test input set has already been used to profile the algorithm
@@ -178,6 +202,16 @@ public class Profiler<T> {
 	
 	
 	
+	
+	
+	
+	/*
+	 * -----------------------------
+	 * 		PROFILING
+	 * -----------------------------
+	 * 
+	 */
+	
 	/**
 	 * Profiles the algorithm with the given test input set.
 	 * @param numberOfTimeToTestEachInput Is the number of time each element of the input set will be tested.
@@ -217,6 +251,17 @@ public class Profiler<T> {
 	}
 	
 	
+	
+	
+	
+	
+	
+	/*
+	 * -----------------------------
+	 * 		GETTERS
+	 * -----------------------------
+	 * 
+	 */
 	
 	/**
 	 * Method that returns the average between all the time spend for every attempt of every element
@@ -279,6 +324,14 @@ public class Profiler<T> {
 		return results.get(i).getMedian();
 	}
 	
+	
+	
+	/*
+	 * -----------------------------
+	 * 		LATEX GETTERS
+	 * -----------------------------
+	 * 
+	 */
 	
 	
 	/**
@@ -408,6 +461,8 @@ public class Profiler<T> {
 		
 		return ans.toString();
 	}
+	
+	
 
 	
 	/**
