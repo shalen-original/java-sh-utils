@@ -9,7 +9,7 @@ import shutils.data.visualization.DataTable;
 
 /**
  * This class allows to profile a simple algorithm which requires as a parameter a single
- * parameter of type T. This class internally uses @code{System.nanoTime()} to compute the
+ * parameter of type T. This class internally uses {@code System.nanoTime()} to compute the
  * running time of the algorithm. However, this class does not guarantee a nanosecond precision.
  * @author Matteo Nardini
  *
@@ -146,8 +146,8 @@ public class Profiler<T> {
 	/**
 	 * Allows to check if the current test input set has already been used to profile the algorithm
 	 * or not. This method also allows to know if the result of the profiling are already available or not.
-	 * @return This method returns @code{true} if the current test input set has already been profiled and
-	 * the results are ready. This method returns @code{false} if the current test input set has <b>NOT</b>
+	 * @return This method returns {@code true} if the current test input set has already been profiled and
+	 * the results are ready. This method returns {@code false} if the current test input set has <b>NOT</b>
 	 * already been profiled. In this second case, the results and the statistics for this set are not
 	 * available.
 	 */
@@ -171,14 +171,14 @@ public class Profiler<T> {
  	
 	/**
 	 * This method allows to update the test input set to be used to profile the algorithm by
-	 * using the @code{inputProducer} function provided. This method will call the @code{inputProducer}
-	 * function @code{max-min} times. At each call, an increasing counter will be passed to the function.
+	 * using the {@code inputProducer} function provided. This method will call the {@code inputProducer}
+	 * function {@code max-min} times. At each call, an increasing counter will be passed to the function.
 	 * For example, the first call will receive as a parameter @{min}, the second @{min + 1} and so on
-	 * until @code{max} is reached.
+	 * until {@code max} is reached.
 	 * @param min The lower bound of the interval to be used to generate the input set.
 	 * @param max The upper bound of the interval to be used to generate the input set.
-	 * @throws NullPointerException When the @code{inputProducer} function is not defined.
-	 * @throws IllegalArgumentException When the @code{min} is greater then @code{max}.
+	 * @throws NullPointerException When the {@code inputProducer} function is not defined.
+	 * @throws IllegalArgumentException When the {@code min} is greater then {@code max}.
 	 */
 	public void updateInputSet(int min, int max)
 	{
@@ -245,8 +245,8 @@ public class Profiler<T> {
 				algorithm.accept(tmpCopy);
 				tmp = System.nanoTime() - tmp;
 				
-				tmpStat.appendResult(tmp);	
-				globalStatistics.appendResult(tmp);
+				tmpStat.appendNumber(tmp);	
+				globalStatistics.appendNumber(tmp);
 			}
 						
 			results.add(tmpStat);

@@ -25,10 +25,10 @@ public class Statistic
 	}
 	
 	/**
-	 * Adds a result to the current set of numbers.
+	 * Adds a number to the current set of numbers.
 	 * @param r The number to be added.
 	 */
-	public void appendResult(Long r)
+	public void appendNumber(Long r)
 	{
 		results.add(r);
 	}
@@ -42,11 +42,13 @@ public class Statistic
 	}
 	
 	/**
-	 * Calculates the average of the current set of numbers.
-	 * @return The average of the set of numbers.
+	 * Calculates the average of the current set of numbers (floored to the closest Long).
+	 * @return The average of the set of numbers (floored to the closest Long).
 	 */
 	public Long getAverage()
 	{
+		if (results.size() == 0) return (long)0;
+		
 		long avg = 0;
 		
 		for (long a : results)
@@ -58,11 +60,13 @@ public class Statistic
 	}
 	
 	/**
-	 * Calculates the standard deviation of the current set of numbers.
-	 * @return The standard deviation of the set of numbers.
+	 * Calculates the standard deviation of the current set of numbers (floored to the closest Long).
+	 * @return The standard deviation of the set of numbers (floored to the closest Long).
 	 */
 	public Long getStDev()
 	{
+		if (results.size() == 0) return (long)0;
+		
 		long StDev = 0;
 		long avg = getAverage();
 		
@@ -77,11 +81,14 @@ public class Statistic
 	}
 	
 	/**
-	 * Calculates the median of the current set of numbers.
-	 * @return The median of the set of numbers.
+	 * Calculates the median of the current set of numbers (floored to the closest Long).
+	 * @return The median of the set of numbers (floored to the closest Long).
 	 */
 	public Long getMedian()
 	{
+		
+		if (results.size() == 0) return (long)0;
+		
 		Collections.sort(results);
 		int s = results.size();
 		
@@ -100,6 +107,15 @@ public class Statistic
 	 */
 	public Long getNumberAt(int index)
 	{
-		return results.get(index).longValue();
+		return results.get(index);
+	}
+	
+	/**
+	 * Returns the number of numbers in the current numbers list.
+	 * @return The number of numbers in the current numbers list.
+	 */
+	public Integer getNumberCount()
+	{
+		return results.size();
 	}
 }
