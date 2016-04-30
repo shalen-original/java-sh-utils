@@ -233,7 +233,7 @@ public class DataTable <T> {
 	/**
 	 * Returns the Matlab matrix string representation of the current table. If {@code includeHeadings} is true the 
 	 * headings row is included, otherwise it is excluded.
-	 * @param includeHeadings Whether to include the headings row in the string or not.
+	 * @param matrixName The name of the matrix to be generated.
 	 * @return Returns the Matlab matrix string representation of the current table.
 	 */
 	public String toMatlabMatrixString(String matrixName)
