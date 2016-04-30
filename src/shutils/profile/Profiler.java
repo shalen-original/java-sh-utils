@@ -371,7 +371,7 @@ public class Profiler<T> {
 			row[0] = (long) (i + 1);
 			for (int k = 1; k < lastTestRepetition; k++)
 			{
-				row[k] = results.get(i).getResultAt(k - 1);
+				row[k] = results.get(i).getNumberAt(k - 1);
 			}
 			row[lastTestRepetition + 1] = results.get(i).getAverage();
 			ans.addRow(row);
