@@ -1,10 +1,11 @@
 package shutils.profile;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
+
+import shutils.data.visualization.DataTable;
 
 /**
  * This class allows to profile a simple algorithm which requires as a parameter a single
@@ -70,6 +71,8 @@ public class Profiler<T> {
 	
 	
 	
+	
+	
 	/*
 	 * -----------------------------
 	 * 		CONSTRUCTORS
@@ -114,7 +117,7 @@ public class Profiler<T> {
 	 * Initializes this profiler with a certain algorithm to be profiled and a certain input
 	 * generator which can be used to generate the test input set that allows to profile the algorithm.
 	 * @param algorithm The algorithm to be profiled.
-	 * @param inputSet The test input set generator to be used to create the test set
+	 * @param inputProducer The test input set generator to be used to create the test set
 	 * required to profile the algorithm.
 	 * @param copyProducer The routine that copies a given element of the test set. This is required
 	 * in order to repeat the test multiple times.
@@ -125,6 +128,8 @@ public class Profiler<T> {
 		this.inputSet = null;
 		this.inputProducer = inputProducer;
 	}
+	
+	
 	
 	
 	
@@ -256,284 +261,123 @@ public class Profiler<T> {
 	
 	
 	
+	
+	
 	/*
 	 * -----------------------------
 	 * 		GETTERS
 	 * -----------------------------
 	 * 
 	 */
-	
 	/**
-	 * Method that returns the average between all the time spend for every attempt of every element
-	 * of the input set.
+	 * Returns the global statistics. Global statistics are given by the sum of all the time
+	 * taken by all the tests.
+	 * @return Returns the global statistics.
 	 */
-	public long getGlobalAverage()
+	public Statistic getGlobalStatistics()
 	{
-		return globalStatistics.getAverage();
+		return globalStatistics;
 	}
 	
 	/**
-	 * Method that returns the standard deviation between all the time spend for every attempt of every element
-	 * of the input set.
+	 * Returns the statistics of a single result.
+	 * @param i The index of the result to return.
+	 * @return The statistics of the {@code i}-th result.
 	 */
-	public long getGlobalStDev()
+	public Statistic getResultStatistics(int i)
 	{
-		return globalStatistics.getStDev();
-	}
-	
-	/**
-	 * Method that returns the median between all the time spend for every attempt of every element
-	 * of the input set.
-	 */
-	public long getGlobalMedian()
-	{
-		return globalStatistics.getMedian();
+		return results.get(i);
 	}
 	
 	
-	/**
-	 * Method that returns the average of the time spend to test a particular element
-	 * of the input set.
-	 * @param i The index of the element in the input set
-	 * @return The average of the time spend to test the @code{i-th} element of the input set.
-	 */
-	public long getResultAverage(int i)
-	{
-		return results.get(i).getAverage();
-	}
 	
-	/**
-	 * Method that returns the standard deviation of the time spend to test a particular element
-	 * of the input set.
-	 * @param i The index of the element in the input set
-	 * @return The standard deviation of the time spend to test the @code{i-th} element of the input set.
-	 */
-	public long getResultStDev(int i)
-	{
-		return results.get(i).getStDev();
-	}
 	
-	/**
-	 * Method that returns the median of the time spend to test a particular element
-	 * of the input set.
-	 * @param i The index of the element in the input set
-	 * @return The median of the time spend to test the @code{i-th} element of the input set.
-	 */
-	public long getResultMedian(int i)
-	{
-		return results.get(i).getMedian();
-	}
+	
 	
 	
 	
 	/*
 	 * -----------------------------
-	 * 		LATEX GETTERS
+	 * 		DATA TABLE GETTERS
 	 * -----------------------------
 	 * 
 	 */
 	
-	
 	/**
-	 * Returns a valid Latex Table as a string.
-	 * @return The Latex Table string containing the global results of the last test.
+	 * Returns the global results as a data table.
+	 * @return A an object of type {@code DataTable<Long>} containing the global results.
 	 */
-	public String globalResultsToLatexString()
+	public DataTable<Long> globalResultsToDataTable()
 	{
-		StringBuilder ans = new StringBuilder();
-			
-		ans.append("\\begin{center}");
-		ans.append("{");
+		DataTable<Long> ans = new DataTable<>(3);
 		
-			ans.append("\\renewcommand{\\arraystretch}{1.5}");
-			ans.append("\\renewcommand{\\tabcolsep}{0.2cm}");
-			
-			ans.append("\\begin{tabular}{|c|c|c|c|}");
-				ans.append("\\hline ");
-				ans.append("Number of tests & Global average [ns] & Global st. dev. [ns] & Global median [ns] \\\\");
-				
-					ans.append("\\hline ");
-					ans.append(results.size() + " & ");
-					ans.append(globalStatistics.getAverage() + " & ");
-					ans.append(globalStatistics.getStDev() + " & ");
-					ans.append(globalStatistics.getMedian() + " \\\\ ");
-				
-				ans.append("\\hline ");
-			ans.append("\\end{tabular}");
+		ans.setHeadings("Number of tests & Global average [ns]", "Global st. dev. [ns]", "Global median [ns]");
 		
-		ans.append("}");
-		ans.append("\\end{center}");
+		Long[] row = {globalStatistics.getAverage(),
+					  globalStatistics.getStDev(),
+					  globalStatistics.getMedian()};
 		
+		ans.addRow(row);
 		
-		return ans.toString();
+		return ans;
 	}	
 	
 	/**
-	 * Returns a valid Latex Table as a string.
-	 * @return The Latex Table string containing the results summary of the last test.
+	 * Returns the results summary as a data table.
+	 * @return A an object of type {@code DataTable<Long>} containing the results summary.
 	 */
-	public String resultSummaryToLatexString()
+	public DataTable<Long> resultSummaryToLatexString()
 	{
-		StringBuilder ans = new StringBuilder();
+		DataTable<Long> ans = new DataTable<>(4);
+		ans.setHeadings("Test number", "Average (" + lastTestRepetition + " attempts) [ns]", "St. dev. (" + lastTestRepetition + " attempts) [ns] & Median (" + lastTestRepetition + " attempts) [ns]");
 		
-		ans.append("\\begin{center}");
-		ans.append("{");
+		Long[] row;
+		for (int i = 0; i < results.size(); i++)
+		{
+			row = new Long[4];
+			row[0] = (long) (i + 1);
+			row[1] = results.get(i).getAverage();
+			row[2] = results.get(i).getStDev();
+			row[3] = results.get(i).getMedian();
+			ans.addRow(row);
+		}
 		
-			ans.append("\\renewcommand{\\arraystretch}{1.5}");
-			ans.append("\\renewcommand{\\tabcolsep}{0.2cm}");
-			
-			ans.append("\\begin{tabular}{|c|c|c|c|}");
-				ans.append("\\hline ");
-				ans.append("Test number & Average (" + lastTestRepetition + " attempts) [ns] & St. dev. (" + lastTestRepetition + " attempts) [ns] & Median (" + lastTestRepetition + " attempts) [ns]\\\\");
-				
-				for (int i = 0; i < results.size(); i++)
-				{
-					ans.append("\\hline ");
-					ans.append(i + 1 + " & ");
-					ans.append(results.get(i).getAverage() + " & ");
-					ans.append(results.get(i).getStDev() + " & ");
-					ans.append(results.get(i).getMedian() + " \\\\ ");
-				}
-				
-				ans.append("\\hline ");
-			ans.append("\\end{tabular}");
-		
-		ans.append("}");
-		ans.append("\\end{center}");
-		
-		return ans.toString();
+		return ans;
 	}
 
 	/**
-	 * Returns a valid Latex Table as a string.
-	 * @return The Latex Table string containing the results details of the last test.
+	 * Returns the results details as a data table.
+	 * @return A an object of type {@code DataTable<Long>} containing the results details.
 	 */
-	public String resultDetailsToLatexString()
+	public DataTable<Long> resultDetailsToLatexString()
 	{
-		
-		StringBuilder tabDeclaration = new StringBuilder();
-		tabDeclaration.append("|");
 		// +2 allows to add the "Test number" column and the "Average" column
-		for (int i = 0; i < lastTestRepetition + 2; i++)
-		{
-			tabDeclaration.append("c|");
-		}
-		
-		StringBuilder header = new StringBuilder();
-		header.append("N & ");
+		String[] headings = new String[lastTestRepetition + 2];
+
+		headings[0] = "N";
+		headings[lastTestRepetition + 1] = "Average [ns]";
+
 		for (int i = 0; i < lastTestRepetition; i++)
 		{
-			header.append("T ");
-			header.append(i + 1);
-			header.append(" & ");
+			headings[i + 1] = "T " + i + 1;
 		}
-		header.append("Average [ns] \\\\");
 		
+		DataTable<Long> ans = new DataTable<>(headings);
 		
-		StringBuilder ans = new StringBuilder();
+		Long[] row;
+		for (int i = 0; i < results.size(); i++)
+		{
+			row = new Long[headings.length];
+			row[0] = (long) (i + 1);
+			for (int k = 1; k < lastTestRepetition; k++)
+			{
+				row[k] = results.get(i).getResultAt(k - 1);
+			}
+			row[lastTestRepetition + 1] = results.get(i).getAverage();
+			ans.addRow(row);
+		}
 		
-		ans.append("\\begin{center}");
-		ans.append("{");
-		
-			ans.append("\\renewcommand{\\arraystretch}{1.5}");
-			ans.append("\\renewcommand{\\tabcolsep}{0.2cm}");
-			
-			ans.append("\\begin{tabular}{" + tabDeclaration.toString() + "}");
-				ans.append("\\hline ");
-				ans.append(header.toString());
-				
-				for (int i = 0; i < results.size(); i++)
-				{
-					ans.append("\\hline ");
-					ans.append(i + 1 + " & ");
-					for (int k = 0; k < lastTestRepetition; k++)
-					{
-						ans.append(results.get(i).getResultAt(k) + " & ");
-					}
-					ans.append(results.get(i).getAverage() + "\\\\");
-				}
-				
-				ans.append("\\hline ");
-			ans.append("\\end{tabular}");
-		
-		ans.append("}");
-		ans.append("\\end{center}");
-		
-		return ans.toString();
+		return ans;
 	}
-	
-	
 
-	
-	/**
-	 * Internal utility. Allows to represent a set of values and to perform statistical calculations on it. 
-	 * @author Matteo Nardini
-	 *
-	 */
-	private class Statistic
-	{
-		ArrayList<Long> results;
-		
-		public Statistic()
-		{
-			results = new ArrayList<Long>();
-		}
-		
-		public void appendResult(Long r)
-		{
-			results.add(r);
-		}
-		
-		public void clearResults()
-		{
-			results.clear();
-		}
-		
-		public Long getAverage()
-		{
-			long avg = 0;
-			
-			for (long a : results)
-			{
-				avg += a;
-			}
-			
-			return avg / results.size();
-		}
-		
-		public Long getStDev()
-		{
-			long StDev = 0;
-			long avg = getAverage();
-			
-			for (Long a : results)
-			{
-				StDev += Math.pow(a - avg, 2);
-			}
-			
-			StDev /= results.size();
-			
-			return (long) Math.sqrt(StDev);
-		}
-		
-		public Long getMedian()
-		{
-			Collections.sort(results);
-			int s = results.size();
-			
-			if (s % 2 == 0)
-			{
-				return (results.get(s / 2) + results.get((s / 2) + 1)) / 2;
-			}else{
-				return results.get(s / 2);
-			}
-		}
-		
-		public Long getResultAt(int index)
-		{
-			return results.get(index).longValue();
-		}
-	}
-	
-	
 }
