@@ -7,6 +7,7 @@ import org.junit.Test;
 import shutils.data.visualization.DataTable;
 
 /**
+ * Test cases for the shutils.data.visualization.DataTable class
  * @author Matteo Nardini
  *
  */
@@ -17,10 +18,6 @@ public class DataTableTests {
 	 * 		getHeadings
 	 * -------------------------------------
 	 */
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#getHeadings()}.
-	 */
 	@Test
 	public void testGetHeadings_00() {
 		
@@ -28,11 +25,7 @@ public class DataTableTests {
 		
 		assertEquals(true, t.getHeadings() == null);
 		
-	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#getHeadings()}.
-	 */
+	}	
 	@Test
 	public void testGetHeadings_01() {
 		
@@ -50,10 +43,6 @@ public class DataTableTests {
 		assertEquals(true, same);
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#getHeadings()}.
-	 */
 	@Test
 	public void testGetHeadings_02() {
 		
@@ -84,10 +73,6 @@ public class DataTableTests {
 	 * 		setHeadings
 	 * -------------------------------------
 	 */
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#setHeadings()}.
-	 */
 	@Test
 	public void testSetHeadings_00() {
 		
@@ -107,10 +92,6 @@ public class DataTableTests {
 		assertEquals(true, same);
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#setHeadings()}.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetHeadings_01() {
 		
@@ -119,10 +100,6 @@ public class DataTableTests {
 		t.setHeadings("Test", "Test 2", "Test 3");
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#setHeadings()}.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetHeadings_02() {
 		
@@ -141,9 +118,6 @@ public class DataTableTests {
 	 * 		addRow
 	 * -------------------------------------
 	 */
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#addRow(Object[])}.
-	 */
 	@Test
 	public void testAddRow_00() {
 		
@@ -155,11 +129,6 @@ public class DataTableTests {
 		assertEquals("Test 1;Test 2;Test 3\n1;2;3", t.toString());
 		
 	}
-	
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#addRow(Object[])}.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testAddRow_01() {
 		
@@ -181,9 +150,6 @@ public class DataTableTests {
 	 * 		removeRowAtIndex
 	 * -------------------------------------
 	 */
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#removeRowAtIndex(Object[])}.
-	 */
 	@Test
 	public void testRemoveRowAtIndex_00() {
 		
@@ -197,10 +163,6 @@ public class DataTableTests {
 		assertEquals("Test 1;Test 2;Test 3\n1;2;3", t.toString());
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#removeRowAtIndex(Object[])}.
-	 */
 	@Test(expected = IndexOutOfBoundsException.class)
 	public void testRemoveRowAtIndex_01() {
 		
@@ -222,10 +184,6 @@ public class DataTableTests {
 	 * 		getRowCount
 	 * -------------------------------------
 	 */
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#getRowCount()()}.
-	 */
 	@Test
 	public void testGetRowCount_00() {
 		
@@ -238,10 +196,6 @@ public class DataTableTests {
 		assertEquals(3, d.getRowCount());
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#getRowCount()()}.
-	 */
 	@Test
 	public void testGetRowCount_01() {
 		
@@ -254,10 +208,6 @@ public class DataTableTests {
 		assertEquals(3, d.getRowCount(true));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#getRowCount()()}.
-	 */
 	@Test
 	public void testGetRowCount_02() {
 		
@@ -270,10 +220,6 @@ public class DataTableTests {
 		assertEquals(2, d.getRowCount(false));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#getRowCount()()}.
-	 */
 	@Test
 	public void testGetRowCount_03() {
 		
@@ -282,10 +228,6 @@ public class DataTableTests {
 		assertEquals(1, d.getRowCount(true));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#getRowCount()()}.
-	 */
 	@Test
 	public void testGetRowCount_04() {
 		
@@ -298,10 +240,6 @@ public class DataTableTests {
 		assertEquals(2, d.getRowCount(true));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#getRowCount()()}.
-	 */
 	@Test
 	public void testGetRowCount_05() {
 		
@@ -314,10 +252,6 @@ public class DataTableTests {
 		assertEquals(2, d.getRowCount(false));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#getRowCount()()}.
-	 */
 	@Test
 	public void testGetRowCount_06() {
 		
@@ -343,9 +277,6 @@ public class DataTableTests {
 	 * 		toCSVTableString
 	 * -------------------------------------
 	 */
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toCSVTableString}.
-	 */
 	@Test
 	public void testToCSVTableString_00() {
 		
@@ -358,10 +289,6 @@ public class DataTableTests {
 		assertEquals("Test 1;Test 2;Test 3\n1;2;3\n1;2;3", d.toCSVTableString(true, ";"));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toCSVTableString}.
-	 */
 	@Test
 	public void testToCSVTableString_01() {
 		
@@ -374,10 +301,6 @@ public class DataTableTests {
 		assertEquals("1;2;3\n1;2;3", d.toCSVTableString(true, ";"));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toCSVTableString}.
-	 */
 	@Test
 	public void testToCSVTableString_02() {
 		
@@ -390,10 +313,6 @@ public class DataTableTests {
 		assertEquals("Test 1 ; Test 2 ; Test 3\n1 ; 2 ; 3\n1 ; 2 ; 3", d.toCSVTableString(true, " ; "));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toCSVTableString}.
-	 */
 	@Test
 	public void testToCSVTableString_03() {
 		
@@ -406,10 +325,6 @@ public class DataTableTests {
 		assertEquals("1 ; 2 ; 3\n1 ; 2 ; 3", d.toCSVTableString(true, " ; "));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toCSVTableString}.
-	 */
 	@Test
 	public void testToCSVTableString_04() {
 		
@@ -422,10 +337,6 @@ public class DataTableTests {
 		assertEquals("1;2;3\n1;2;3", d.toCSVTableString(false, ";"));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toCSVTableString}.
-	 */
 	@Test
 	public void testToCSVTableString_05() {
 		
@@ -438,10 +349,6 @@ public class DataTableTests {
 		assertEquals("1;2;3\n1;2;3", d.toCSVTableString(false, ";"));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toCSVTableString}.
-	 */
 	@Test
 	public void testToCSVTableString_06() {
 		
@@ -454,10 +361,6 @@ public class DataTableTests {
 		assertEquals("1 ; 2 ; 3\n1 ; 2 ; 3", d.toCSVTableString(false, " ; "));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toCSVTableString}.
-	 */
 	@Test
 	public void testToCSVTableString_07() {
 		
@@ -470,10 +373,6 @@ public class DataTableTests {
 		assertEquals("1 ; 2 ; 3\n1 ; 2 ; 3", d.toCSVTableString(false, " ; "));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toCSVTableString}.
-	 */
 	@Test
 	public void testToCSVTableString_08() {
 		
@@ -482,10 +381,6 @@ public class DataTableTests {
 		assertEquals("Test 1;Test 2;Test 3", d.toCSVTableString(true, ";"));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toCSVTableString}.
-	 */
 	@Test
 	public void testToCSVTableString_09() {
 		
@@ -510,9 +405,6 @@ public class DataTableTests {
 	 * 		toLatexTableString
 	 * -------------------------------------
 	 */
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toLatexTableString}.
-	 */
 	@Test
 	public void testToLatexTableString_00() {
 		
@@ -527,10 +419,6 @@ public class DataTableTests {
 				+ "\\\\ \\hline 1 & 2 & 3\\\\ \\hline \\end{tabular}}\\end{center}", d.toLatexTableString(true));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toLatexTableString}.
-	 */
 	@Test
 	public void testToLatexTableString_01() {
 		
@@ -545,10 +433,6 @@ public class DataTableTests {
 				+ "\\end{tabular}}\\end{center}", d.toLatexTableString(true));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toLatexTableString}.
-	 */
 	@Test
 	public void testToLatexTableString_02() {
 		
@@ -563,10 +447,6 @@ public class DataTableTests {
 				+ "\\end{tabular}}\\end{center}", d.toLatexTableString(false));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toLatexTableString}.
-	 */
 	@Test
 	public void testToLatexTableString_03() {
 		
@@ -581,11 +461,6 @@ public class DataTableTests {
 				+ "\\end{tabular}}\\end{center}", d.toLatexTableString(false));
 		
 	}
-	
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toLatexTableString}.
-	 */
 	@Test
 	public void testToLatexTableString_04() {
 		
@@ -596,10 +471,6 @@ public class DataTableTests {
 				+ "1 & Test 2 & Test 3\\\\ \\hline \\end{tabular}}\\end{center}", d.toLatexTableString(true));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toLatexTableString}.
-	 */
 	@Test
 	public void testToLatexTableString_05() {
 		
@@ -623,9 +494,6 @@ public class DataTableTests {
 	 * 		toMatlabMatrixString
 	 * -------------------------------------
 	 */
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toMatlabMatrixString}.
-	 */
 	@Test
 	public void testToMatlabMatrixString_00() {
 		
@@ -638,11 +506,6 @@ public class DataTableTests {
 		assertEquals("Test = [1 2 3;1 2 3];", d.toMatlabMatrixString("Test"));
 		
 	}
-	
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toMatlabMatrixString}.
-	 */
 	@Test
 	public void testToMatlabMatrixString_01() {
 		
@@ -651,10 +514,6 @@ public class DataTableTests {
 		assertEquals("Test = [];", d.toMatlabMatrixString("Test"));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toMatlabMatrixString}.
-	 */
 	@Test
 	public void testToMatlabMatrixString_02() {
 		
@@ -680,9 +539,6 @@ public class DataTableTests {
 	 * 		toHTMLTableString
 	 * -------------------------------------
 	 */
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toHTMLTableString}.
-	 */
 	@Test
 	public void testToHTMLTableString_00() {
 		
@@ -696,10 +552,6 @@ public class DataTableTests {
 				+ "<td>3</td></tr><tr><td>1</td><td>2</td><td>3</table>", d.toHTMLTableString(true));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toHTMLTableString}.
-	 */
 	@Test
 	public void testToHTMLTableString_01() {
 		
@@ -713,10 +565,6 @@ public class DataTableTests {
 				+ "<tr><td>1</td><td>2</td><td>3</table>", d.toHTMLTableString(true));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toHTMLTableString}.
-	 */
 	@Test
 	public void testToHTMLTableString_02() {
 		
@@ -730,10 +578,6 @@ public class DataTableTests {
 				+ "<tr><td>1</td><td>2</td><td>3</table>", d.toHTMLTableString(false));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toHTMLTableString}.
-	 */
 	@Test
 	public void testToHTMLTableString_03() {
 		
@@ -747,11 +591,6 @@ public class DataTableTests {
 				+ "<tr><td>1</td><td>2</td><td>3</table>", d.toHTMLTableString(false));
 		
 	}
-	
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toHTMLTableString}.
-	 */
 	@Test
 	public void testToHTMLTableString_04() {
 		
@@ -760,10 +599,6 @@ public class DataTableTests {
 		assertEquals("<table><tr><td>Test 1</td><td>Test 2</td><td>Test 3</table>", d.toHTMLTableString(true));
 		
 	}
-	
-	/**
-	 * Test method for {@link shutils.data.visualization.DataTable#toHTMLTableString}.
-	 */
 	@Test
 	public void testToHTMLTableString_05() {
 		
