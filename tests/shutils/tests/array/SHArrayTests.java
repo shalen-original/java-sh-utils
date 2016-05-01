@@ -2,6 +2,7 @@ package shutils.tests.array;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import shutils.array.SHArray;
@@ -343,5 +344,110 @@ public class SHArrayTests {
 		assertEquals(0, (int)SHArray.findMinPos(A));
 	}
 	
+	
+	
+	/*
+	 *   swap
+	 */
+	@Test
+	public void testSwap_00(){
+		Integer[] A = {1, 2, 3};
+		SHArray.swap(A, 0, 2);
+		
+		assertEquals(true, A[0] == 3 && A[1] == 2 && A[2] == 1);
+	}
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void testSwap_01(){
+		Integer[] A = {1, 2, 3};
+		SHArray.swap(A, -1, 2);
+	}
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void testSwap_02(){
+		Integer[] A = {1, 2, 3};
+		SHArray.swap(A, 3, 2);
+	}
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void testSwap_03(){
+		Integer[] A = {1, 2, 3};
+		SHArray.swap(A, 1, -5);
+	}
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void testSwap_04(){
+		Integer[] A = {1, 2, 3};
+		SHArray.swap(A, 1, 3);
+	}
+	
+	
+	/*
+	 * 	shiftRight
+	 */
+	@Test
+	public void testShiftRight_00()
+	{
+		Integer[] A = {1, 2, 3, 4};
+		SHArray.shiftRight(A, 0, 2);
+		assertEquals(true, A[0] == 1 && A[1] == 1 && A[2] == 2 && A[3] == 4);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testShiftRight_01()
+	{
+		Integer[] A = {1, 2, 3, 4};
+		SHArray.shiftRight(A, 2, 0);
+	}
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void testShiftRight_02()
+	{
+		Integer[] A = {1, 2, 3, 4};
+		SHArray.shiftRight(A, -1, 2);
+	}
+	
+	
+	
+	/*
+	 * 	shiftLeft
+	 */
+	@Test
+	public void testShiftLeft_00()
+	{
+		Integer[] A = {1, 2, 3, 4};
+		SHArray.shiftLeft(A, 0, 2);
+		assertEquals(true, A[0] == 2 && A[1] == 3 && A[2] == 3 && A[3] == 4);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testShiftLeft_01()
+	{
+		Integer[] A = {1, 2, 3, 4};
+		SHArray.shiftLeft(A, 2, 0);
+	}
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void testShiftLeft_02()
+	{
+		Integer[] A = {1, 2, 3, 4};
+		SHArray.shiftLeft(A, -1, 2);
+	}
+	
+	
+	/*
+	 *  copyArray
+	 */
+	public void testCopyArray_00()
+	{
+		Integer[] A = {4, 5, 2, 6};
+		Integer[] B = SHArray.copyArray(A);
+		
+		for (int i = 0; i < A.length; i++)
+		{
+			if (A[i] != B[i])
+			{
+				Assert.fail("");
+			}
+		}
+	}
+	public void testCopyArray_01()
+	{
+		Integer[] B = SHArray.copyArray(null);
+		
+		assertEquals(true, B == null);
+	}
 	
 }

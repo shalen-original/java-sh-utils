@@ -184,6 +184,94 @@ public class SHArray {
 	
 	
 	
+	/*
+	 * 	SHIFTS
+	 */
+	
+	/**
+	 * Shifts all the elements of {@code A} starting from position {@code i} and reaching position {@code j}.
+	 * The element {@code A[i]} is unchanged.
+	 * @param A The array which element are to be shifted.
+	 * @param i The starting position for the shift.
+	 * @param j The end position for the shift.
+	 * @throws IllegalArgumentException When {@code i > j}.
+	 * @throws IndexOutOfBoundsException When {@code i < 0} or {@code j >= A.length}.
+	 */
+	public static <T> void shiftRight(T[] A, int i, int j)
+	{		
+		checkEndpoints(A.length, i, j);
+		
+		for(; j > i; j--)
+		{
+			A[j] = A[j - 1];
+		}
+	}
+	
+	/**
+	 * Shifts all the elements of {@code A} starting from position {@code j} and reaching position {@code i}.
+	 * The element {@code A[j]} is unchanged.
+	 * @param A The array which element are to be shifted.
+	 * @param i The end position for the shift.
+	 * @param j The start position for the shift.
+	 * @throws IllegalArgumentException When {@code i > j}.
+	 * @throws IndexOutOfBoundsException When {@code i < 0} or {@code j >= A.length}.
+	 */
+	public static <T> void shiftLeft(T[] A, int i, int j)
+	{
+		checkEndpoints(A.length, i, j);
+		
+		for(; i < j; i++)
+		{
+			A[i] = A[i + 1];
+		}
+	}
+	
+	
+	
+	
+	/*
+	 * 	OTHERS
+	 */
+	
+	/**
+	 * Swaps two elements of the array.
+	 * @param A The array which elements are to be swapped.
+	 * @param i The index of the first element to be swapped.
+	 * @param j The index of the second element to be swapped.
+	 * @throws IndexOutOfBoundsException When {@code i} or {@code j} are not valid.
+	 */
+	public static <T> void swap(T[] A, int i, int j)
+	{
+		if ((i < 0 || i >= A.length) || (j < 0 || j >= A.length))
+			throw new IndexOutOfBoundsException("The two indexes are not valid");
+		
+		T tmp;
+		tmp = A[i];
+		A[i] = A[j];
+		A[j] = tmp;
+	}
+	
+	
+	/**
+	 * Copies an array to another array. The copy is shallow.
+	 * @param A The array to be copied.
+	 * @return A shallow copy of the array.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T[] copyArray(T[] A)
+	{
+		Object[] copy = new Object[A.length];
+		
+		for (int i = 0; i < A.length; i++)
+		{
+			copy[i] = A[i];
+		}
+		
+		return (T[]) copy;
+	}
+	
+	
+	
 	
 	
 	
