@@ -430,24 +430,82 @@ public class SHArrayTests {
 	/*
 	 *  copyArray
 	 */
+	@Test
 	public void testCopyArray_00()
 	{
 		Integer[] A = {4, 5, 2, 6};
-		Integer[] B = SHArray.copyArray(A);
+		Integer[] B = SHArray.copyArray(A, Integer.class);
 		
 		for (int i = 0; i < A.length; i++)
 		{
 			if (A[i] != B[i])
 			{
-				Assert.fail("");
+				Assert.fail();
 			}
 		}
 	}
+	@Test
 	public void testCopyArray_01()
 	{
-		Integer[] B = SHArray.copyArray(null);
-		
+		Integer[] B = SHArray.copyArray(null, null);
+	
 		assertEquals(true, B == null);
 	}
+	
+	
+	
+	
+	
+	/*
+	 *  generateRandomBetween
+	 */
+	@Test
+	public void testGenerateRandomBetween_00()
+	{
+		for (int i = 0; i < 200; i++)
+		{
+			Integer a = SHArray.generateRandomBetween(3, 10);
+			if (a < 3 || a > 10)
+				Assert.fail();
+		}
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testGenerateRandomBetween_01()
+	{
+		SHArray.generateRandomBetween(-2, 3);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testGenerateRandomBetween_02()
+	{
+		SHArray.generateRandomBetween(1, -4);
+	}
+	
+	/*
+	 * createRandomArray
+	 */
+	@Test
+	public void testCreateRandomArray_00()
+	{
+		Integer[] A = SHArray.createRandomArray(10, Integer.class, (i) -> (SHArray.generateRandomBetween(4, 7)));
+		
+		for (int i = 0; i < 10; i++)
+		{
+			if (A[i] < 4 || A[i] > 7)
+				Assert.fail();
+		}
+		
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateRandomArray_01()
+	{
+		SHArray.createRandomArray(10, Integer.class, null);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateRandomArray_02()
+	{
+		SHArray.createRandomArray(-5, Integer.class, (i) -> (i));
+	}
+	
+	
 	
 }

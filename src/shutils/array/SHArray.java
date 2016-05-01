@@ -1,5 +1,8 @@
 package shutils.array;
 
+import java.lang.reflect.Array;
+import java.util.function.Function;
+
 /**
  * This class contains various utilities implemented as static methods that allow to work with standard arrays.
  * @author Matteo Nardini
@@ -106,6 +109,7 @@ public class SHArray {
 	 * @param A The array which min has to be found.
 	 * @param i The lower endpoint of the search interval (inclusive).
 	 * @param j The upper endpoint of the search interval (inclusive).
+	 * @param <T> The type of elements contained in {@code A}.
 	 * @return The min element of the array {@code A} in the interval {@code (i;j)}.
 	 * @throws IllegalArgumentException When {@code i > j}.
 	 * @throws IndexOutOfBoundsException When {@code i < 0} or {@code j >= A.length}.
@@ -194,6 +198,7 @@ public class SHArray {
 	 * @param A The array which element are to be shifted.
 	 * @param i The starting position for the shift.
 	 * @param j The end position for the shift.
+	 * @param <T> The type of elements contained in {@code A}.
 	 * @throws IllegalArgumentException When {@code i > j}.
 	 * @throws IndexOutOfBoundsException When {@code i < 0} or {@code j >= A.length}.
 	 */
@@ -213,6 +218,7 @@ public class SHArray {
 	 * @param A The array which element are to be shifted.
 	 * @param i The end position for the shift.
 	 * @param j The start position for the shift.
+	 * @param <T> The type of elements contained in {@code A}.
 	 * @throws IllegalArgumentException When {@code i > j}.
 	 * @throws IndexOutOfBoundsException When {@code i < 0} or {@code j >= A.length}.
 	 */
@@ -230,6 +236,40 @@ public class SHArray {
 	
 	
 	/*
+	 * 	RANDOM GENERATION
+	 */
+	/**
+	 * Generates a random array of a certain size.
+	 * @param size The size of the array to be generated.
+	 * @param randomGenerator The function that generates the random elements of the array.
+	 * @param <T> The type of elements contained in the randomly generated array.
+	 * @return The random array.
+	 * @throws IllegalArgumentException If the {@code randomGenerator} is null or if {@code size} is negative.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T[] createRandomArray(int size, Class<T> type, Function<Integer, T> randomGenerator)
+	{
+		if (randomGenerator == null)
+			throw new IllegalArgumentException("The random generator cannot be null");
+		
+		if (size < 0)
+			throw new IllegalArgumentException("The size must be non negative");
+		
+		
+		T[] ans = (T[]) Array.newInstance(type, size);
+		
+		for (int i = 0; i < ans.length; i++) {
+			ans[i] = randomGenerator.apply(i);
+		}
+		
+		return (T[]) ans;
+	}
+	
+	
+	
+	
+	
+	/*
 	 * 	OTHERS
 	 */
 	
@@ -238,6 +278,7 @@ public class SHArray {
 	 * @param A The array which elements are to be swapped.
 	 * @param i The index of the first element to be swapped.
 	 * @param j The index of the second element to be swapped.
+	 * @param <T> The type of elements contained in {@code A}.
 	 * @throws IndexOutOfBoundsException When {@code i} or {@code j} are not valid.
 	 */
 	public static <T> void swap(T[] A, int i, int j)
@@ -255,21 +296,39 @@ public class SHArray {
 	/**
 	 * Copies an array to another array. The copy is shallow.
 	 * @param A The array to be copied.
+	 * @param c The class of the elements contained in A.
+	 * @param <T> The type of elements contained in {@code A}.
 	 * @return A shallow copy of the array.
 	 */
-	@SuppressWarnings("unchecked")
-	public static <T> T[] copyArray(T[] A)
+	public static <T> T[] copyArray(T[] A, Class<T> c)
 	{
-		Object[] copy = new Object[A.length];
+		if (A == null) return null;
+		
+		@SuppressWarnings("unchecked")
+		T[] copy = (T[]) Array.newInstance(c , A.length);
 		
 		for (int i = 0; i < A.length; i++)
 		{
 			copy[i] = A[i];
 		}
 		
-		return (T[]) copy;
+		return copy;
 	}
 	
+	
+	/**
+	 * Generates a <b>positive</b> random integer between two endpoints.
+	 * @param min The lower endpoint
+	 * @param max The upper endpoint
+	 * @return A positive random integer between {@code min} and {@code max} (inclusive).
+	 */
+	public static Integer generateRandomBetween(Integer min, Integer max)
+	{
+		if (max < 0 || min < 0)
+			throw new IllegalArgumentException("Min and max have to be positive");
+		
+		return (int) (min + (Math.random() * (max - min)) + 1);
+	}
 	
 	
 	
