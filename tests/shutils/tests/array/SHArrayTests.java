@@ -486,11 +486,11 @@ public class SHArrayTests {
 	@Test
 	public void testCreateRandomArray_00()
 	{
-		Integer[] A = SHArray.createRandomArray(10, Integer.class, (i) -> (SHArray.generateRandomBetween(4, 7)));
+		Integer[] A = SHArray.createRandomArray(10, Integer.class, (i) -> (i));
 		
 		for (int i = 0; i < 10; i++)
 		{
-			if (A[i] < 4 || A[i] > 7)
+			if (A[i] != i)
 				Assert.fail();
 		}
 		
@@ -504,6 +504,42 @@ public class SHArrayTests {
 	public void testCreateRandomArray_02()
 	{
 		SHArray.createRandomArray(-5, Integer.class, (i) -> (i));
+	}
+	
+	
+	
+	/*
+	 * createRandomMatrix
+	 */
+	@Test
+	public void testCreateRandomMatrix_00()
+	{
+		Integer[][] A = SHArray.createRandomMatrix(10, 4, Integer.class, (i) -> (i));
+		
+		for (int i = 0; i < 10; i++)
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				if (A[i][j] != i * 4 + j)
+					Assert.fail();
+			}
+		}
+		
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateRandomMatrix_01()
+	{
+		SHArray.createRandomMatrix(10, 4, Integer.class, null);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateRandomMatrix_02()
+	{
+		SHArray.createRandomMatrix(-5, 4, Integer.class, (i) -> (i));
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateRandomMatrix_03()
+	{
+		SHArray.createRandomMatrix(10, -4, Integer.class, (i) -> (i));
 	}
 	
 	

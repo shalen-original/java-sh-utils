@@ -242,6 +242,7 @@ public class SHArray {
 	 * Generates a random array of a certain size.
 	 * @param size The size of the array to be generated.
 	 * @param randomGenerator The function that generates the random elements of the array.
+	 * @param type The class of the random elements to be generated.
 	 * @param <T> The type of elements contained in the randomly generated array.
 	 * @return The random array.
 	 * @throws IllegalArgumentException If the {@code randomGenerator} is null or if {@code size} is negative.
@@ -263,6 +264,38 @@ public class SHArray {
 		}
 		
 		return (T[]) ans;
+	}
+	
+	/**
+	 * Generates a random matrix of a certain size.
+	 * @param rowNumber The number of rows of the matrix to be generated.
+	 * @param colNumber The number of columns of the matrix to be generated.
+	 * @param randomGenerator The function that generates the random elements of the matrix.
+	 * @param type The class of the random elements to be generated.
+	 * @param <T> The type of elements contained in the randomly generated matrix.
+	 * @return The random matrix.
+	 * @throws IllegalArgumentException If the {@code randomGenerator} is null or if {@code rowNumber} or {@code colNumber} are negative.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T[][] createRandomMatrix(int rowNumber, int colNumber, Class<T> type, Function<Integer, T> randomGenerator)
+	{
+		if (randomGenerator == null)
+			throw new IllegalArgumentException("The random generator cannot be null");
+		
+		if (rowNumber < 0 || colNumber < 0)
+			throw new IllegalArgumentException("The size must be non negative");
+		
+		
+		T[][] ans = (T[][]) Array.newInstance(type, rowNumber, colNumber);
+		
+		for (int i = 0; i < rowNumber; i++) {
+			for (int j = 0; j < colNumber; j++)
+			{
+				ans[i][j] = randomGenerator.apply((i * colNumber) + j);
+			}
+		}
+		
+		return (T[][]) ans;
 	}
 	
 	
