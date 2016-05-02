@@ -10,7 +10,7 @@ Handles basic array stuff such as swap and random array generation. It also impl
 ### shtutils.profile ###
 Contains a basic method profiler and some tools for data visualization.
 
-### shutils.data.structures ###
+### shutils.data.structures (coming soon)###
 Contains all the implementation of data structures shown and implemented in the course. These are the common
 structures taught in every *Introduction to Algorithm* course.
 
