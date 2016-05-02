@@ -8,7 +8,7 @@ This is a simple library I created for my university assignments. It contains a 
 Handles basic array stuff such as swap and random array generation. It also implements some methods already present in the standard library (such as *clone*), because we were not allowed to use them.
 
 ### shtutils.profile ###
-Contains a basic method profiler and some tools for data visualization.
+Contains a basic method profiler.
 
 ### shutils.data.structures (coming soon)###
 Contains all the implementation of data structures shown and implemented in the course. These are the common
@@ -16,6 +16,7 @@ structures taught in every *Introduction to Algorithm* course.
 
 ### shutils.data.visualization ###
 Contains all the utilities that can be used to visualize data. Examples are:
+
 * CSV to Latex table converter
 * CSV to Matlab data set
 
