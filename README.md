@@ -25,6 +25,7 @@ The test folder contains all the JUnit test used to test if the implementation o
 
 ## How to setup the environment##
 In order to start working on the library you should:
+
 * Clone this repository
 * Open Eclipse -> File -> Import -> Existing Projects into Workspace
 * You can start working
