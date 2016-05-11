@@ -1,6 +1,7 @@
 package shutils.data.visualization;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 /**
  * Basic implementation of a class that describes a table of data.
@@ -172,9 +173,10 @@ public class DataTable <T> {
 	 * headings row is included, otherwise it is excluded.
 	 * @param includeHeadings Whether to include the headings row in the string or not.
 	 * @param separator The separator to use for the CSV String.
+	 * @param filter The filter used to choose which rows to print.
 	 * @return Returns the CSV String representation of the current table.
 	 */
-	public String toCSVTableString(boolean includeHeadings, String separator)
+	public String toCSVTableString(boolean includeHeadings, String separator, Predicate<T[]> filter)
 	{
 		StringBuilder ans = new StringBuilder();
 		
@@ -185,7 +187,8 @@ public class DataTable <T> {
 		
 		for (T[] row : table)
 		{
-			ans.append(rowArrayToCSVString(row, separator));
+			if (filter == null || filter.test(row))
+				ans.append(rowArrayToCSVString(row, separator));
 		}
 		
 		if(ans.length() > 0)
@@ -196,18 +199,31 @@ public class DataTable <T> {
 	
 	
 	/**
+	 * Returns the CSV String representation of the current table. If {@code includeHeadings} is true the 
+	 * headings row is included, otherwise it is excluded.
+	 * @param includeHeadings Whether to include the headings row in the string or not.
+	 * @param separator The separator to use for the CSV String.
+	 * @return Returns the CSV String representation of the current table.
+	 */
+	public String toCSVTableString(boolean includeHeadings, String separator)
+	{
+		return toCSVTableString(includeHeadings, separator, null);
+	}
+	
+	/**
 	 * Returns the Latex table string representation of the current table. If {@code includeHeadings} is true the 
 	 * headings row is included, otherwise it is excluded.
 	 * @param includeHeadings Whether to include the headings row in the string or not.
+	 * @param filter The filter used to choose which rows to print.
 	 * @return Returns the Latex table string representation of the current table.
 	 */
-	public String toLatexTableString(boolean includeHeadings)
+	public String toLatexTableString(boolean includeHeadings, Predicate<T[]> filter)
 	{
 		// This routines builds the internal of the Latex table by generating the CSV string
 		// with the appropriate separator " & ". Then, the return characters "\n" are replaced
 		// with the appropriate Latex delimiter.
 		StringBuilder ans = new StringBuilder();
-		String CSV = toCSVTableString(includeHeadings, " & ");
+		String CSV = toCSVTableString(includeHeadings, " & ", filter);
 		
 		if (CSV.equals("")) return "";
 		
@@ -231,18 +247,30 @@ public class DataTable <T> {
 	}
 	
 	/**
+	 * Returns the Latex table string representation of the current table. If {@code includeHeadings} is true the 
+	 * headings row is included, otherwise it is excluded.
+	 * @param includeHeadings Whether to include the headings row in the string or not.
+	 * @return Returns the Latex table string representation of the current table.
+	 */
+	public String toLatexTableString(boolean includeHeadings)
+	{
+		return toLatexTableString(includeHeadings, null);
+	}
+	
+	/**
 	 * Returns the Matlab matrix string representation of the current table. If {@code includeHeadings} is true the 
 	 * headings row is included, otherwise it is excluded.
 	 * @param matrixName The name of the matrix to be generated.
+	 * @param filter The filter used to choose which rows to print.
 	 * @return Returns the Matlab matrix string representation of the current table.
 	 */
-	public String toMatlabMatrixString(String matrixName)
+	public String toMatlabMatrixString(String matrixName, Predicate<T[]> filter)
 	{
 		// This routines builds the Matlab matrix string by generating the CSV string
 		// with the appropriate separator " ". Then, the return characters "\n" are replaced
 		// with the appropriate Matlab delimiter.
 		StringBuilder ans = new StringBuilder();
-		String CSV = toCSVTableString(false, " ");
+		String CSV = toCSVTableString(false, " ", filter);
 		
 		ans.append(matrixName);
 		ans.append(" = [");
@@ -256,18 +284,30 @@ public class DataTable <T> {
 	}
 	
 	/**
+	 * Returns the Matlab matrix string representation of the current table. If {@code includeHeadings} is true the 
+	 * headings row is included, otherwise it is excluded.
+	 * @param matrixName The name of the matrix to be generated.
+	 * @return Returns the Matlab matrix string representation of the current table.
+	 */
+	public String toMatlabMatrixString(String matrixName)
+	{
+		return toMatlabMatrixString(matrixName, null);
+	}
+	
+	/**
 	 * Returns the HTML table string representation of the current table. If {@code includeHeadings} is true the 
 	 * headings row is included, otherwise it is excluded.
 	 * @param includeHeadings Whether to include the headings row in the string or not.
+	 * @param filter The filter used to choose which rows to print.
 	 * @return Returns the HTML table string representation of the current table.
 	 */
-	public String toHTMLTableString(boolean includeHeadings)
+	public String toHTMLTableString(boolean includeHeadings, Predicate<T[]> filter)
 	{
 		// This routines builds the HTML table string by generating the CSV string
 		// with the appropriate separator "</td><td>". Then, the return characters "\n" are replaced
 		// with the appropriate HTML delimiter "</td></tr><tr><td>".
 		StringBuilder ans = new StringBuilder();
-		String CSV = toCSVTableString(includeHeadings, "</td><td>");
+		String CSV = toCSVTableString(includeHeadings, "</td><td>", filter);
 		
 		if (CSV.equals("")) return "";
 		
@@ -280,6 +320,17 @@ public class DataTable <T> {
 		
 		
 		return ans.toString();
+	}
+	
+	/**
+	 * Returns the HTML table string representation of the current table. If {@code includeHeadings} is true the 
+	 * headings row is included, otherwise it is excluded.
+	 * @param includeHeadings Whether to include the headings row in the string or not.
+	 * @return Returns the HTML table string representation of the current table.
+	 */
+	public String toHTMLTableString(boolean includeHeadings)
+	{
+		return toHTMLTableString(includeHeadings, null);
 	}
 	
 	/**

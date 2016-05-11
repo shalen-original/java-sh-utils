@@ -389,6 +389,21 @@ public class DataTableTests {
 		assertEquals("", d.toCSVTableString(true, ";"));
 		
 	}
+	@Test
+	public void testToCSVTableString_10() {
+		
+		DataTable<Integer> d = new DataTable<>("Test 1", "Test 2", "Test 3");
+		
+		Integer[] a = {1, 2, 3};
+		d.addRow(a);
+		Integer[] b = {4, 5, 6};
+		d.addRow(b);
+		Integer[] c = {1, 5, 6};
+		d.addRow(c);
+		
+		assertEquals("1 ; 2 ; 3\n1 ; 5 ; 6", d.toCSVTableString(false, " ; ", (i) -> i[0] == 1));
+		
+	}
 	
 	
 	
@@ -479,6 +494,23 @@ public class DataTableTests {
 		assertEquals("", d.toLatexTableString(true));
 		
 	}
+	@Test
+	public void testToLatexTableString_06() {
+		
+		DataTable<Integer> d = new DataTable<>(3);
+		
+		Integer[] a = {1, 2, 3};
+		d.addRow(a);
+		Integer[] b = {4, 5, 6};
+		d.addRow(b);
+		Integer[] c = {1, 5, 6};
+		d.addRow(c);
+		
+		assertEquals("\\begin{center}{\\renewcommand{\\arraystretch}{1.5}\\renewcommand{\\tabcolsep}"
+				+ "{0.2cm}\\begin{tabular}{|c|c|c|c|}\\hline 1 & 2 & 3\\\\ \\hline 1 & 5 & 6\\\\ \\hline "
+				+ "\\end{tabular}}\\end{center}", d.toLatexTableString(false, i -> i[0] == 1));
+		
+	}
 	
 	
 	
@@ -520,6 +552,22 @@ public class DataTableTests {
 		DataTable<Integer> d = new DataTable<>(3);
 		
 		assertEquals("Test = [];", d.toMatlabMatrixString("Test"));
+		
+	}
+	
+	@Test
+	public void testToMatlabMatrixString_03() {
+		
+		DataTable<Integer> d = new DataTable<>("Test 1", "Test 2", "Test 3");
+		
+		Integer[] a = {1, 2, 3};
+		d.addRow(a);
+		Integer[] b = {4, 5, 6};
+		d.addRow(b);
+		Integer[] c = {1, 5, 6};
+		d.addRow(c);
+		
+		assertEquals("Test = [1 2 3;1 5 6];", d.toMatlabMatrixString("Test", i -> i[0] == 1));
 		
 	}
 	
@@ -607,6 +655,21 @@ public class DataTableTests {
 		assertEquals("", d.toHTMLTableString(true));
 		
 	}
-	
+	@Test
+	public void testToHTMLTableString_06() {
+		
+		DataTable<Integer> d = new DataTable<>("Test 1", "Test 2", "Test 3");
+		
+		Integer[] a = {1, 2, 3};
+		d.addRow(a);
+		Integer[] b = {4, 5, 6};
+		d.addRow(b);
+		Integer[] c = {1, 5, 6};
+		d.addRow(c);
+		
+		assertEquals("<table><tr><td>Test 1</td><td>Test 2</td><td>Test 3</td></tr><tr><td>1</td><td>2</td>"
+				+ "<td>3</td></tr><tr><td>1</td><td>5</td><td>6</table>", d.toHTMLTableString(true, i -> i[0] == 1));
+		
+	}
 
 }
