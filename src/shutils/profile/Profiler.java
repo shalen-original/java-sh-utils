@@ -453,9 +453,9 @@ public class Profiler<T> {
 	
 	/**
 	 * Returns a data table with only two column, useful for data plotting on graphs.
-	 * @return A {@code DataTable<Long>} containing only two column: the test number and the average. Useful for data plotting on graphs.
+	 * @return A {@code DataTable<Long>} containing only two column: the test number and the average time for that test. Useful for data plotting on graphs.
 	 */
-	public DataTable<Long> resultGraphDataTable()
+	public DataTable<Long> resultAverageToDataTable()
 	{
 		DataTable<Long> ans = new DataTable<>(2);
 		ans.setHeadings("Test number", "Average (" + lastTestRepetition + " attempts) [ns]");

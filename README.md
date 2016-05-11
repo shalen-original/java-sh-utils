@@ -20,9 +20,8 @@ structures taught in every *Introduction to Algorithm* course.
 ### shutils.data.visualization ###
 Contains all the utilities that can be used to visualize data. Examples are:
 
-* CSV to Latex table converter
-* CSV to Matlab data set
-* CSV to HTML table converter
+* A class that represents a generic data table and allows to obtain the CSV, Latex, Matlab and HTML representation of the table;
+* A class that represents a generic 2D scatter plots and allows to obtain the Latex representation of the table.
 
 ### shutils.search (coming soon) ###
 Implements some of the most common search algorithms.

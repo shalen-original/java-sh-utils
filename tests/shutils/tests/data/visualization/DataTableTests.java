@@ -176,6 +176,40 @@ public class DataTableTests {
 	
 	
 	
+	/*
+	 * -------------------------------------
+	 * 		getRow
+	 * -------------------------------------
+	 */
+	@Test
+	public void testGetRow_00() {
+		
+		DataTable<Integer> t = new DataTable<>("Test 1", "Test 2", "Test 3");
+		
+		Integer[] a = {1, 2, 3};
+		t.addRow(a);
+		Integer[] b = {4, 5, 6};
+		t.addRow(b);
+
+		Integer[] c = t.getRow(1);
+		
+		for(int i = 0; i < c.length; i++)
+		{
+			if (c[i] != b[i])
+				fail("The wrong line was returned");
+		}
+		
+	}
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void testGetRow_01() {
+		
+		DataTable<Integer> t = new DataTable<>("Test 1", "Test 2", "Test 3");
+		
+		Integer[] a = {1, 2, 3};
+		t.addRow(a);
+		t.getRow(6);
+	}
+	
 	
 	
 	
@@ -263,7 +297,15 @@ public class DataTableTests {
 	
 	
 	
+	/*
+	 *  getColumnNumber
+	 */
 	
+	@Test
+	public void testGetColumnNumber_00() {
+		DataTable<Integer> d = new DataTable<>(3);
+		assertEquals(d.getColumnNumber(), 3);
+	}
 	
 	
 	

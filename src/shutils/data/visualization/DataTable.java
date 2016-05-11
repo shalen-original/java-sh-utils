@@ -16,18 +16,18 @@ public class DataTable <T> {
 	 * Stores the headings of the current table. This field is needed because, usually, the type
 	 * of the data held in the table will not be @code{String}.
 	 */
-	String[] headings;
+	private String[] headings;
 	
 	/**
 	 * Stores all the data of the current table.
 	 */
-	ArrayList<T[]> table;
+	private ArrayList<T[]> table;
 	
 	/**
 	 * The number of column of the current table. This value is immutable (e.g. can only be set
 	 * when the object is created).
 	 */
-	int columnNumber;
+	private int columnNumber;
 	
 	
 	/**
@@ -93,7 +93,19 @@ public class DataTable <T> {
 		table.remove(i);
 	}
 	
-	
+	/**
+	 * Returns a row of the data table.
+	 * @param i The index of the row to be returned. A index value of zero represents the first data row of the table,
+	 * the headings are not included.
+	 * @return The {@code i-th} data row of the table.
+	 */
+	public T[] getRow(int i)
+	{
+		if (i >= table.size() || i < 0)
+			throw new IndexOutOfBoundsException("The index is greater than the current length of the table or lower than zero");
+		
+		return table.get(i);
+	}
 	
 	
 	/**
@@ -145,6 +157,15 @@ public class DataTable <T> {
 			return table.size() + (headings == null ? 0 : 1);
 		else
 			return table.size();
+	}
+	
+	/**
+	 * Returns the number of columns of the current table.
+	 * @return The number of columns of the current table.
+	 */
+	public int getColumnNumber()
+	{
+		return columnNumber;
 	}
 	
 	

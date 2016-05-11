@@ -178,11 +178,6 @@ public class ProfilerTest {
 		p.resultDetailsToDataTable();
 	}
 
-	@Test
-	public void testResultGraphDataTable() {
-		Profiler<Integer> p = new Profiler<Integer>(i -> {}, i -> i, i -> i);
-		p.performTest(1, 1, 10);
-		p.resultGraphDataTable();
-	}
+
 
 }
