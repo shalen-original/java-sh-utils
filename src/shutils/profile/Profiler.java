@@ -375,7 +375,7 @@ public class Profiler<T> {
 	public DataTable<Long> resultSummaryToDataTable()
 	{
 		DataTable<Long> ans = new DataTable<>(4);
-		ans.setHeadings("Test number", "Average (" + lastTestRepetition + " attempts) [ns]", "St. dev. (" + lastTestRepetition + " attempts) [ns] & Median (" + lastTestRepetition + " attempts) [ns]");
+		ans.setHeadings("Test number", "Average (" + lastTestRepetition + " attempts) [ns]", "St. dev. (" + lastTestRepetition + " attempts) [ns]", "Median (" + lastTestRepetition + " attempts) [ns]");
 		
 		Long[] row;
 		for (int i = 0; i < results.size(); i++)
