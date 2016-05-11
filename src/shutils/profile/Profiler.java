@@ -311,10 +311,35 @@ public class Profiler<T> {
 	
 	/*
 	 * -----------------------------
-	 * 		GETTERS
+	 * 		GETTERS & RESULTS CLEANING
 	 * -----------------------------
 	 * 
 	 */
+	
+	/**
+	 * Used to "clean" the global statistics. It deletes all the numbers that are not included in the interval 
+	 * {@code [getAverage() - 2*getStDev(), getAverage() + 2*getStDev()]}
+	 * from the global statistics result.
+	 */
+	public void cleanGlobalStatistics()
+	{
+		// Beware, this is not the only way to clean the global statistics
+		// from the outside. One could do o.getGlobalStatistics().clean()
+		globalStatistics.clean();
+	}
+	
+	/**
+	 * Used to "clean" the results statistics. It deletes all the numbers that are not included in the interval 
+	 * {@code [getAverage() - 2*getStDev(), getAverage() + 2*getStDev()]}
+	 * from all the results statistics.
+	 */
+	public void cleanAllResultStatistics()
+	{
+		// Beware, this is not the only way to clean the results statistics
+		// from the outside. One could do o.getResultStatistics(i).clean()
+		results.forEach(i -> i.clean());
+	}
+	
 	/**
 	 * Returns the global statistics. Global statistics are given by the sum of all the time
 	 * taken by all the tests.
@@ -420,6 +445,27 @@ public class Profiler<T> {
 				row[k] = results.get(i).getNumberAt(k - 1);
 			}
 			row[lastTestRepetition + 1] = results.get(i).getAverage();
+			ans.addRow(row);
+		}
+		
+		return ans;
+	}
+	
+	/**
+	 * Returns a data table with only two column, useful for data plotting on graphs.
+	 * @return A {@code DataTable<Long>} containing only two column: the test number and the average. Useful for data plotting on graphs.
+	 */
+	public DataTable<Long> resultGraphDataTable()
+	{
+		DataTable<Long> ans = new DataTable<>(2);
+		ans.setHeadings("Test number", "Average (" + lastTestRepetition + " attempts) [ns]");
+		
+		Long[] row;
+		for (int i = 0; i < results.size(); i++)
+		{
+			row = new Long[2];
+			row[0] = (long) (i + 1);
+			row[1] = results.get(i).getAverage();
 			ans.addRow(row);
 		}
 		

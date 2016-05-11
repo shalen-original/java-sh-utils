@@ -1,6 +1,8 @@
 package shutils.tests.profile;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+
+import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +17,11 @@ import shutils.profile.Statistic;
 public class StatisticTest {
 	
 	Statistic s;
+	Long[] values = {(long)1234, 
+					(long)4738, 
+					(long)7942, 
+					(long)6732, 
+					(long)7963};
 	
 	/*
 	 *  TEST SETUP
@@ -30,13 +37,39 @@ public class StatisticTest {
 		
 		if (s.getNumberCount() == 0)
 		{
-			s.appendNumber((long)1234);
-			s.appendNumber((long)4738);
-			s.appendNumber((long)7942);
-			s.appendNumber((long)6732);
-			s.appendNumber((long)7963);
+			Arrays.asList(values).forEach(i -> s.appendNumber(i));
 		}
 	}
+	
+	
+	
+	/*
+	 *  Constructor
+	 */
+	@Test
+	public void testStatistic_00() {
+		@SuppressWarnings("unused")
+		Statistic v = new Statistic();
+	}
+	
+	/*
+	 * appendNumber
+	 */
+	@Test
+	public void testAppendNumber_00(){
+		s.appendNumber((long) 1000);
+	}
+	
+	
+	/*
+	 * clearResults
+	 */
+	@Test
+	public void testClearResults_00() {
+		s.clearResults();
+		assertEquals(true, s.getNumberCount() == 0);
+	}
+	
 	
 	
 	/*
@@ -86,5 +119,50 @@ public class StatisticTest {
 		assertEquals((long)0, (long)s.getMedian());
 		
 	}
+
+	
+	/*
+	 *   getNumberAt
+	 */
+	@Test
+	public void testGetNumberAt_00(){
+		assertEquals(true, s.getNumberAt(0) == (long)1234);
+	}
+	
+	
+	/*
+	 *  getNumberCount
+	 */
+	@Test
+	public void testGetNumberCount_00() {
+		assertEquals(true, s.getNumberCount() == 5);
+	}
+	
+	
+	/*
+	 *  clean
+	 */
+	@Test
+	public void testClean_00() {
+		
+		s.appendNumber((long) 999999999);
+		s.appendNumber((long) -999999999);
+		
+		s.clean(1);
+		
+		for (int i = 0; i < s.getNumberCount(); i++)
+		{
+			if (s.getNumberAt(i) == 999999999 || s.getNumberAt(i) == -999999999)
+				fail("The method didn't remove the extreme values");
+		}
+		
+		
+	}
+	@Test
+	public void testClean_01() {
+		Statistic t = new Statistic();
+		t.clean();
+	}
+	
 
 }

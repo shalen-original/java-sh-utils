@@ -118,4 +118,36 @@ public class Statistic
 	{
 		return results.size();
 	}
+	
+	/**
+	 * Used to "clean" the result set. This method scans the current number list and searches for values
+	 * that a too far form the mean value of this number list. Those values are deleted from the result set.
+	 * @param i This parameters sets how far from the mean the results should be in order to be deleted. Any number
+	 * that is not included in the interval {@code [getAverage() - i*getStDev(), getAverage() + i*getStDev()]} will be
+	 * removed from the current number list.
+	 */
+	public void clean(int i)
+	{
+		long avg = getAverage();
+		long stDev = getStDev();
+		ArrayList<Long> newRes = new ArrayList<>();
+		
+		results.forEach(k -> 
+				{
+					if (k >= (avg -i*stDev) && k <= (avg +i * stDev)) 
+						newRes.add(k);
+				});
+		
+		results = newRes;
+	}
+	
+	/**
+	 * Used to "clean" the result set. It deletes all the numbers that are not included in the interval 
+	 * {@code [getAverage() - 2*getStDev(), getAverage() + 2*getStDev()]}
+	 * from the current numbers list.
+	 */
+	public void clean()
+	{
+		clean(2);
+	}
 }
