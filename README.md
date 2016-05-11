@@ -2,13 +2,16 @@
 
 This is a simple library I created for my university assignments. It contains a list of useful Java functions, to use when needed.
 
+_**Note**_: None of the methods implemented in this library was written aiming at the perfect, most optimized solution for that problem. That requires far
+more time that that that I want to spend on this project. The various methods are only asymptotically efficient. 
+
 ## Modules ##
 
 ### shutils.array ###
 Handles basic array stuff such as swap and random array generation. It also implements some methods already present in the standard library (such as *clone*), because we were not allowed to use them.
 
 ### shtutils.profile ###
-Contains a basic method profiler.
+Contains a basic method profiler and classes related to the statistical elaboration of the results.
 
 ### shutils.data.structures (coming soon)###
 Contains all the implementation of data structures shown and implemented in the course. These are the common
@@ -19,6 +22,13 @@ Contains all the utilities that can be used to visualize data. Examples are:
 
 * CSV to Latex table converter
 * CSV to Matlab data set
+* CSV to HTML table converter
+
+### shutils.search (coming soon) ###
+Implements some of the most common search algorithms.
+
+### shutils.sort ###
+Implements some of the most common sorting algorithms.
 
 ## Tests ##
 The test folder contains all the JUnit test used to test if the implementation of the methods are correct. They are not the best of the world, but they will do.
