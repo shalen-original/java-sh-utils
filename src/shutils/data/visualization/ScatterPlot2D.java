@@ -205,7 +205,7 @@ public class ScatterPlot2D<T extends Number>
 	/**
 	 * Sets the x-axis label of the current scatter plot.
 	 *
-	 * @param title
+	 * @param xAxisLabel
 	 *            The x-axis label of the current scatter plot.
 	 */
 	public void setXAxisLabel(String xAxisLabel)
@@ -216,7 +216,7 @@ public class ScatterPlot2D<T extends Number>
 	/**
 	 * Sets the y-axis label of the current scatter plot.
 	 *
-	 * @param title
+	 * @param yAxisLabel
 	 *            The y-axis label of the current scatter plot.
 	 */
 	public void setYAxisLabel(String yAxisLabel)

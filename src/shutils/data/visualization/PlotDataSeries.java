@@ -67,6 +67,8 @@ public class PlotDataSeries<T extends Number>
 	 *
 	 * @param newData
 	 *            The list of all the {@code n} arrays.
+	 * @param type
+	 *            The type of the objects to be added to the data table.
 	 */
 	@SuppressWarnings("unchecked")
 	public void fillWithData(ArrayList<T[]> newData, Class<T> type)
@@ -129,9 +131,9 @@ public class PlotDataSeries<T extends Number>
 	}
 
 	/**
-	 * Returns the DataTable<T> object containing the data of this series.
+	 * Returns the DataTable object containing the data of this series.
 	 *
-	 * @return The DataTable<T> object containing the data of this series.
+	 * @return The DataTable object containing the data of this series.
 	 */
 	public DataTable<T> getData()
 	{

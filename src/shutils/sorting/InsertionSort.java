@@ -19,6 +19,8 @@ public class InsertionSort
 	 *
 	 * @param A
 	 *            The array to be sorted.
+	 * @param <T>
+	 *            The type of items contained in A.
 	 */
 	public static <T extends Comparable<T>> void insertionSort(T[] A)
 	{
@@ -37,6 +39,8 @@ public class InsertionSort
 	 *            The index of the leftmost element to sort.
 	 * @param r
 	 *            The index of the rightmost element to sort.
+	 * @param <T>
+	 *            The type of items contained in A.
 	 */
 	public static <T extends Comparable<T>> void insertionSortBetween(T[] A, int l, int r)
 	{
