@@ -166,7 +166,7 @@ public class Profiler<T> {
 		profiledForCurrentSet = false;
 		inputSet = newInputSet;
 		
-		cleanPreviousResults();
+		clearPreviousResults();
 	}	
  	
 	/**
@@ -189,16 +189,18 @@ public class Profiler<T> {
 		
 		for (int i = min; i <= max; i++)
 		{
-			inputSet.add(inputProducer.apply(i));
+			tmp.add(inputProducer.apply(i));
 		}
 		
 		updateInputSet(tmp);
 	}
 	
+	
+	
 	/**
-	 * Internal routine that cleans the previous results
+	 * Internal routine that clears the previous results
 	 */
-	private void cleanPreviousResults()
+	private void clearPreviousResults()
 	{
 		results.clear();	
 		globalStatistics.clearResults();
@@ -227,7 +229,7 @@ public class Profiler<T> {
 		if (inputSet == null) throw new NullPointerException("Test set is not defined");
 		
 		lastTestRepetition = numberOfTimeToTestEachInput;
-		cleanPreviousResults();
+		clearPreviousResults();
 		
 		T tmpCopy;
 		Statistic tmpStat;
@@ -256,7 +258,51 @@ public class Profiler<T> {
 	}
 	
 	
-	
+	/**
+	 * Profiles the algorithm with an input set generated on the fly. This method generates the test input set to be used to profile the algorithm by
+	 * using the {@code inputProducer} function provided. This method will call the {@code inputProducer}
+	 * function {@code max-min} times. At each call, an increasing counter will be passed to the function.
+	 * For example, the first call will receive as a parameter @{min}, the second @{min + 1} and so on
+	 * until {@code max} is reached. This method doesn't change {@code isCurrentSetAlreadyProfiled()}.
+	 * @param numberOfTimeToTestEachInput Is the number of time each element of the input set will be tested.
+	 * @param min The lower bound of the interval to be used to generate the input set.
+	 * @param max The upper bound of the interval to be used to generate the input set.
+	 * @throws NullPointerException If the test input set is not defined.
+	 * @throws IllegalArgumentException When the {@code min} is greater then {@code max}.
+	 */
+	public void performTest(int numberOfTimeToTestEachInput, int min, int max)
+	{
+		if (inputProducer == null) throw new NullPointerException("Input generator not defined");
+		if (min > max) throw new IllegalArgumentException("Min should be lower or equal than max");
+		
+		lastTestRepetition = numberOfTimeToTestEachInput;
+		clearPreviousResults();
+		
+		T tmpCopy;
+		Statistic tmpStat;
+		T currentInputTest;
+		long tmp;
+		
+		for (int i = min; i <= max; i++)
+		{
+			tmpStat = new Statistic();
+			currentInputTest = inputProducer.apply(i);
+			
+			for (int k = 0; k < numberOfTimeToTestEachInput; k++)
+			{
+				tmpCopy = copyProducer.apply(currentInputTest);
+				
+				tmp = System.nanoTime();
+				algorithm.accept(tmpCopy);
+				tmp = System.nanoTime() - tmp;
+				
+				tmpStat.appendNumber(tmp);	
+				globalStatistics.appendNumber(tmp);
+			}
+						
+			results.add(tmpStat);
+		}
+	}
 	
 	
 	
@@ -326,7 +372,7 @@ public class Profiler<T> {
 	 * Returns the results summary as a data table.
 	 * @return A an object of type {@code DataTable<Long>} containing the results summary.
 	 */
-	public DataTable<Long> resultSummaryToLatexString()
+	public DataTable<Long> resultSummaryToDataTable()
 	{
 		DataTable<Long> ans = new DataTable<>(4);
 		ans.setHeadings("Test number", "Average (" + lastTestRepetition + " attempts) [ns]", "St. dev. (" + lastTestRepetition + " attempts) [ns] & Median (" + lastTestRepetition + " attempts) [ns]");
@@ -349,7 +395,7 @@ public class Profiler<T> {
 	 * Returns the results details as a data table.
 	 * @return A an object of type {@code DataTable<Long>} containing the results details.
 	 */
-	public DataTable<Long> resultDetailsToLatexString()
+	public DataTable<Long> resultDetailsToDataTable()
 	{
 		// +2 allows to add the "Test number" column and the "Average" column
 		String[] headings = new String[lastTestRepetition + 2];
