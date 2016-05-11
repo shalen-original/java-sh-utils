@@ -108,6 +108,16 @@ public class DataTable <T> {
 	}
 	
 	
+	
+	/**
+	 * Deletes all the entries in the current data table. Headings are not modified by this method.
+	 */
+	public void clear()
+	{
+		table.clear();
+	}
+	
+	
 	/**
 	 * Sets the headings of the data table.
 	 * @param newHeadings The list of String containing the new headings of the data table.

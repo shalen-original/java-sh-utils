@@ -1,5 +1,6 @@
 package shutils.data.visualization;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * @author Matteo Nardini
  * @param <T> The type of data contained in this series.
  */
-public class PlotDataSeries <T> {
+public class PlotDataSeries <T extends Number> {
 
 	DataTable<T> data;
 	String seriesName;
@@ -42,30 +43,18 @@ public class PlotDataSeries <T> {
 	}
 	
 	/**
-	 * Returns the number of row of the current series.
-	 * @return The number of row of the current series.
+	 * Returns the DataTable<T> object containing the data of this series.
+	 * @return The DataTable<T> object containing the data of this series.
 	 */
-	public Integer getRowCount()
+	public DataTable<T> getData()
 	{
-		return data.getRowCount(false);
+		return data;
 	}
 	
-	/**
-	 * Adds a new row to the current series.
-	 * @param row The row to be added to the current series.
-	 */
 	public void addRow(T[] row)
 	{
+		// Simple shortcut for getData().addRow(T[] row)
 		data.addRow(row);
-	}
-	
-	/**
-	 * Removes a row from the current series.
-	 * @param i The index of the row to be removed.
-	 */
-	public void removeRowAtIndex(int i)
-	{
-		data.removeRowAtIndex(i);
 	}
 	
 	/**
@@ -107,18 +96,37 @@ public class PlotDataSeries <T> {
 	 * Therefore, the {@code i}-th point of the plot will have its dimension one value in the first array, its dimension two value in the second array and so on.
 	 * @param newData The list of all the {@code n} arrays.
 	 */
-	public void fillWithData(ArrayList<T[]> newData)
+	@SuppressWarnings("unchecked")
+	public void fillWithData(ArrayList<T[]> newData, Class<T> type)
 	{
-		@SuppressWarnings("unchecked")
-		T[] a = (T[]) new Object[data.getColumnNumber()];
-		for (int i = 0; i < newData.size(); i++)
+		if (newData.size() != data.getColumnNumber())
+			throw new IllegalArgumentException("The number of elements in each row of the new data has to be equal to the number of dimensions of this series.");
+		
+		
+		if (newData.size() == 0)
 		{
-			if (newData.get(i).length != data.getColumnNumber())
-				throw new IllegalArgumentException("The number of elements in each row of the new data has to be equal to the number of dimensions of this series.");
+			data.clear();
+			return;
+		}
+		
+		
+		int lenFirst = newData.get(0).length;
+		
+		for (int i = 0; i < data.getColumnNumber(); i++)
+		{
+			if (newData.get(i).length != lenFirst)
+				throw new IllegalArgumentException("The number of values in all the dimensions must be the same");
+		}
+		
+		T[] a;
+		
+		for (int i = 0; i < lenFirst; i++)
+		{
+			a = (T[]) Array.newInstance(type, data.getColumnNumber());
 			
 			for (int j = 0; j < data.getColumnNumber(); j++)
 			{
-				a[j] = newData.get(i)[j];
+				a[j] = newData.get(j)[i];
 			}
 			addRow(a);
 		}

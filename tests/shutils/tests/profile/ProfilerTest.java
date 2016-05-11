@@ -179,5 +179,11 @@ public class ProfilerTest {
 	}
 
 
+	@Test
+	public void testResultAsDataSeries() {
+		Profiler<Integer> p = new Profiler<Integer>(i -> {}, i -> i, i -> i);
+		p.performTest(1, 1, 10);
+		p.resultAsDataSeries();
+	}
 
 }

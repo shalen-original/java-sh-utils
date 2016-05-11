@@ -212,6 +212,23 @@ public class DataTableTests {
 	
 	
 	
+	/*
+	 * 	clear
+	 */
+	@Test
+	public void testClear()
+	{
+		DataTable<Integer> t = new DataTable<>("Test 1", "Test 2", "Test 3");
+		
+		Integer[] a = {1, 2, 3};
+		t.addRow(a);
+		
+		t.clear();
+		
+		assertEquals(t.getRowCount(false) == 0, true);
+	}
+	
+	
 	
 	/*
 	 * -------------------------------------

@@ -29,17 +29,6 @@ public class PlotDataSeriesTest {
 		PlotDataSeries<Integer> a = new PlotDataSeries<>("test", SeriesDimensions.THREE_DIMENSIONAL_SERIES);
 	}
 
-	@Test
-	public void testGetRowCount() {
-		PlotDataSeries<Integer> a = new PlotDataSeries<>();
-		
-		Integer[] b = {1, 2};
-		a.addRow(b);
-		a.addRow(b);
-		
-		assertEquals(true, a.getRowCount() == 2);
-	}
-
 	
 	
 	@Test
@@ -57,15 +46,6 @@ public class PlotDataSeriesTest {
 		a.addRow(b);
 	}
 
-	
-	
-	@Test
-	public void testRemoveRowAtIndex() {
-		PlotDataSeries<Integer> a = new PlotDataSeries<>();
-		Integer[] b = {1, 2};
-		a.addRow(b);
-		a.removeRowAtIndex(0);
-	}
 
 	@Test
 	public void testGetAxisData() {
@@ -80,7 +60,7 @@ public class PlotDataSeriesTest {
 		Integer[] ans = {1, 3};
 		
 		ArrayList<Integer> d = a.getAxisData(0);
-		for(int i = 0; i < a.getRowCount(); i++)
+		for(int i = 0; i < a.getData().getRowCount(); i++)
 		{
 			if (d.get(i) != ans[i])
 				fail("The wrong data has been returned");
@@ -104,8 +84,51 @@ public class PlotDataSeriesTest {
 	}
 	
 	@Test
-	public void testFillWithData() {
-		fail("Not implemented yet");
+	public void testFillWithData_00() {
+		
+		PlotDataSeries<Integer> b = new PlotDataSeries<>();
+		Integer[] x = {1, 2, 3, 4};
+		Integer[] y = {3, 2, 6, 1};
+		
+		ArrayList<Integer[]> c = new ArrayList<>();
+		c.add(x);
+		c.add(y);
+		
+		b.fillWithData(c, Integer.class);
+		
+		for (int i = 0; i < x.length; i++)
+		{
+			if (b.getData().getRow(i)[0] != x[i] || b.getData().getRow(i)[1] != y[i])
+				fail("The data is not the same");
+		}
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testFillWithData_01() {
+		
+		PlotDataSeries<Integer> b = new PlotDataSeries<>();
+		Integer[] x = {1, 2, 3, 4, 6};
+		Integer[] y = {3, 2, 6, 1};
+		
+		ArrayList<Integer[]> c = new ArrayList<>();
+		c.add(x);
+		c.add(y);
+		
+		b.fillWithData(c, Integer.class);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testFillWithData_02() {
+		
+		PlotDataSeries<Integer> b = new PlotDataSeries<>();
+		Integer[] x = {1, 2, 3, 4};
+		Integer[] y = {3, 2, 6, 1};
+		Integer[] z = {3, 2, 6, 1};
+		
+		ArrayList<Integer[]> c = new ArrayList<>();
+		c.add(x);
+		c.add(y);
+		c.add(z);
+		
+		b.fillWithData(c, Integer.class);
 	}
 
 }

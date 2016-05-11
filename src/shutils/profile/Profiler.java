@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import shutils.data.visualization.DataTable;
+import shutils.data.visualization.PlotDataSeries;
 
 /**
  * This class allows to profile a simple algorithm which requires as a parameter a single
@@ -452,13 +453,12 @@ public class Profiler<T> {
 	}
 	
 	/**
-	 * Returns a data table with only two column, useful for data plotting on graphs.
-	 * @return A {@code DataTable<Long>} containing only two column: the test number and the average time for that test. Useful for data plotting on graphs.
+	 * Returns a data series containing the test number on the first dimension and the average time on the second dimension.
+	 * @return A {@code PlotDataSeries<Long>} containing two dimension: the test number and the average time for that test. Useful for data plotting on graphs.
 	 */
-	public DataTable<Long> resultAverageToDataTable()
+	public PlotDataSeries<Long> resultAsDataSeries()
 	{
-		DataTable<Long> ans = new DataTable<>(2);
-		ans.setHeadings("Test number", "Average (" + lastTestRepetition + " attempts) [ns]");
+		PlotDataSeries<Long> ans = new PlotDataSeries<Long>();
 		
 		Long[] row;
 		for (int i = 0; i < results.size(); i++)
