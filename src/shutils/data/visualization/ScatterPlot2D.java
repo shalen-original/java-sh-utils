@@ -147,6 +147,7 @@ public class ScatterPlot2D<T extends Number>
 		ans.append("\t %minor y tick num=1,\n");
 		ans.append("\t grid=major,\n");
 		ans.append("\t width=\\textwidth,\n");
+		ans.append("\t legend pos=north west,\n");
 		ans.append("\t legend entries = {");
 		for (PlotDataSeries<T> s : series)
 		{
