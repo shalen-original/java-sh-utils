@@ -127,7 +127,7 @@ public class Statistic
 
 		if ((s % 2) == 0)
 		{
-			return (results.get(s / 2) + results.get((s / 2) + 1)) / 2;
+			return (results.get(s / 2 - 1) + results.get(s / 2)) / 2;
 		} else
 		{
 			return results.get(s / 2);
