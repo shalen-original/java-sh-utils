@@ -1,9 +1,8 @@
-# SHUtils - Shalen Utilites #
+# Shalen Java Utilites - java-sh-utils #
 
-This is a simple library I created for my university assignments. It contains a list of useful Java functions, to use when needed.
+This is a library I created for my university assignments. It contains a list of useful Java functions, to use when needed.
 
-_**Note**_: None of the methods implemented in this library was written aiming at the perfect, most optimized solution for that problem. That requires far
-more time that that that I want to spend on this project. The various methods are only asymptotically efficient. 
+_**Note**_: None of the methods implemented in this library was written aiming at the perfect, most optimized solution for that problem. The various methods are only asymptotically efficient. 
 
 ## Modules ##
 
@@ -13,36 +12,22 @@ Handles basic array stuff such as swap and random array generation. It also impl
 ### shtutils.profile ###
 Contains a basic method profiler and classes related to the statistical elaboration of the results.
 
-### shutils.data.structures (coming soon)###
-Contains all the implementation of data structures shown and implemented in the course. These are the common
-structures taught in every *Introduction to Algorithm* course.
-
 ### shutils.data.visualization ###
 Contains all the utilities that can be used to visualize data. Examples are:
 
 * A class that represents a generic data table and allows to obtain the CSV, Latex, Matlab and HTML representation of the table;
 * A class that represents a generic 2D scatter plots and allows to obtain the Latex representation of the table.
 
-### shutils.search (coming soon) ###
-Implements some of the most common search algorithms.
+### shutils.search ###
+Implements some of the most common search algorithms. As of now, *Linear search* and *Binary search* are implemented.
 
 ### shutils.sort ###
-Implements some of the most common sorting algorithms.
+Implements some of the most common sorting algorithms. As of now, *Insertion Sort* and *Quick Sort* are implemented.
 
 ## Tests ##
 The test folder contains all the JUnit test used to test if the implementation of the methods are correct. They are not the best of the world, but they will do.
 
-## How to setup the environment##
-In order to start working on the library you should:
-
-* Clone this repository
-* Open Eclipse -> File -> Import -> Existing Projects into Workspace
-* You can start working
-
-## Collaboration ##
-Collaboration is welcome, feel free to comment or contact me for suggestions or to submit pull requests.
-
 ## Copyright ##
-All the material in this repository is licensed Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0). More info can be found at this link: http://creativecommons.org/licenses/by-nc-sa/4.0/
+All the material in this repository is licensed Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International [(CC BY-NC-SA 4.0)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
-The developers offer no warranty of any kind (read as: If this library brokes something you can't blame us).
+The developer offers no warranty of any kind (read as: If this library breaks something you can't blame me).
