@@ -94,10 +94,8 @@ public class ScatterPlot2DTest
 				+ "%\t \\pgfplotsset{compat=1.6}\n" + "\\begin{tikzpicture}\\begin{axis}[\n" + "\t title=test,\n"
 				+ "\t xlabel=$x$,\n" + "\t ylabel=$x^2$,\n" + "\t %xmin=-2 , xmax=2,\n" + "\t %ymin=-2 , ymax=2,\n"
 				+ "\t %minor x tick num=1,\n" + "\t %minor y tick num=1,\n" + "\t grid=major,\n"
-				+ "\t width=\\textwidth,\n" + "\t legend entries = {series 1,series 2,},\n"
+				+ "\t width=\\textwidth,\n" + "\t legend pos=north west,\n" + "\t legend entries = {series 1,series 2,},\n"
 				+ "]\n\\addplot coordinates{(1,3)(2,2)(3,6)(4,1)};\\addplot coordinates{(1,5)(2,1)(3,3)(4,8)};\\end{axis}\\end{tikzpicture}";
-
-		System.out.println(a.plotToLatexPGFPlotString());
 
 		assertEquals(expected, a.plotToLatexPGFPlotString());
 
