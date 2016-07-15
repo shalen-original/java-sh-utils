@@ -11,6 +11,7 @@ public class Search
 	 * Finds an element in the array.
 	 * @param A The array to be searched.
 	 * @param q The value to be found.
+	 * @param <T> The type of data contained in the array {@code A}.
 	 * @return The position of the searched element in the array. If it doesn't exist, the method returns {@code -1}.
 	 */
 	public static <T> int linearSearch(T[] A, T q)
@@ -27,6 +28,7 @@ public class Search
 	 * Finds an element in a sorted array.
 	 * @param A The sorted array to be searched.
 	 * @param q The value to be found.
+	 * @param <T> The type of data contained in the array {@code A}.
 	 * @return The position of the searched element in the array. If it doesn't exist, the method returns {@code -1}.
 	 */
 	public static <T extends Comparable<T>> int binarySearch(T[] A, T q)
@@ -41,6 +43,7 @@ public class Search
 	 * @param i The lower index endpoint of the current search interval.
 	 * @param j The upper index endpoint of the current search interval.
 	 * @param q The object to be found.
+	 * @param <T> The type of data contained in the array {@code A}.
 	 * @return The position of the searched element in the array. If it doesn't exist, the method returns {@code -1}.
 	 */
 	public static <T extends Comparable<T>> int binarySearchBetween(T[] A, int i, int j, T q)
