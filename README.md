@@ -18,6 +18,14 @@ Contains all the utilities that can be used to visualize data. Examples are:
 * A class that represents a generic data table and allows to obtain the CSV, Latex, Matlab and HTML representation of the table;
 * A class that represents a generic 2D scatter plots and allows to obtain the Latex representation of the table.
 
+### shutils.gui ###
+Contains some custom Swing components that can be used in various situations. They are:
+
+* `AvatarImageDisplay`: Uses a `JLabel` to display an image. The component automatically stretches the image in order to make it fit the dimensions of the component.
+* `ValidableTextField`: Behaves like a normal `JTextField`, but allows to specify a predicate that checks the input. If it is correct, a certain border is displayed, otherwise another border is displayed. The component does not reject an invalid input: the functionality of this component is only visual.  
+* `ValidablePasswordField`: Behaves like a normal `JPasswordField`, but allows to specify a predicate that checks the input. If it is correct, a certain border is displayed, otherwise another border is displayed. The component does not reject an invalid input: the functionality of this component is only visual.  
+* `ViewEditComponent`: Allows to easily handle situations in which the same field has to act first as display-only field and then has to become editable.
+
 ### shutils.search ###
 Implements some of the most common search algorithms. As of now, *Linear search* and *Binary search* are implemented.
 
