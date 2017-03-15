@@ -62,6 +62,7 @@ public class DBUtils {
      * @param sql The string containing the sql of the query
      * @param filler The functions that sets all the parameters of the prepared statement
      * @param parser The function that parses each result of the query and returns a new object of type T.
+     * @param <T> The type of data contained by the list.
      * @return A list containing all the records selected by the query.
      */
     public static <T> List<T> performSelect(String sql, IPreparedStatementFiller filler,
@@ -88,6 +89,7 @@ public class DBUtils {
      * Performs a select operation on a non prepared sql statement, returning a List.
      * @param sql The string containing the sql of the query
      * @param parser The function that parses each result of the query and returns a new object of type T.
+     * @param <T> The type of data contained by the list.
      * @return A list containing all the records selected by the query.
      */
     public static <T> List<T> performSelect(String sql, ISQLResultParser<T> parser)
