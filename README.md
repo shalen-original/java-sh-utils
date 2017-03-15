@@ -18,6 +18,9 @@ Contains all the utilities that can be used to visualize data. Examples are:
 * A class that represents a generic data table and allows to obtain the CSV, Latex, Matlab and HTML representation of the table;
 * A class that represents a generic 2D scatter plots and allows to obtain the Latex representation of the table.
 
+### shutils.data.database ###
+Contains an handful of classes that allow to connect the application to a database and acceptably model the data that it contains.
+
 ### shutils.gui ###
 Contains some custom Swing components that can be used in various situations. They are:
 
